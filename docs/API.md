@@ -1,7 +1,7 @@
 # API Reference
 
 Base URL (local): `http://127.0.0.1:8000`
-Base URL (deployed): `[BACKEND_HOST]`
+Base URL (deployed): `[https://urban-air-ai-kappa.vercel.app/]`
 
 All responses are JSON. `location_id` values come from `GET /api/locations` (e.g. `anand_vihar`).
 
