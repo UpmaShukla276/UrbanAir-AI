@@ -2,7 +2,9 @@
 
 **Live air quality, GRAP tracking and enforcement decision-support for Delhi NCR.**
 
-[Demo video]([DEMO_VIDEO_URL]) · [API reference](docs/API.md) · [How the numbers are made](docs/METHODOLOGY.md)
+[Live demo](https://urban-air-ai-kappa.vercel.app/) · [Demo video]([DEMO_VIDEO_URL]) · [API reference](docs/API.md) · [How the numbers are made](docs/METHODOLOGY.md)
+
+![UrbanAir AI dashboard](docs/screenshots/overview.png)
 
 
 ---
@@ -154,7 +156,7 @@ UrbanAir-AI/
 │   │   └── components/        # One component per dashboard view
 │   ├── package.json
 │   └── vite.config.js
-└── docs/                      # Architecture, methodology, API, demo notes
+└── docs/                      # Architecture, methodology, and API documentation
 ```
 
 ## Known limitations
