@@ -4,7 +4,7 @@
 
 [Live demo](https://urban-air-ai-kappa.vercel.app/) · [Demo video]([DEMO_VIDEO_URL]) · [API reference](docs/API.md) · [How the numbers are made](docs/METHODOLOGY.md)
 
-![UrbanAir AI dashboard](docs/screenshots/overview.png)
+![UrbanAir AI dashboard](docs/screenshots/Dashboard.png)
 
 
 ---
