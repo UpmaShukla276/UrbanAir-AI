@@ -1,0 +1,28 @@
+# ---- Secrets (never commit these) ----
+.env
+.env.*
+!.env.example
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# ---- Local database (created automatically on first run) ----
+*.db
+*.sqlite3
+
+# ---- Node / Vite ----
+node_modules/
+dist/
+*.local
+npm-debug.log*
+
+# ---- Editors and OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
