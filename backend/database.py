@@ -63,10 +63,17 @@ def init_db():
             stage INTEGER NOT NULL,
             label TEXT NOT NULL,
             ncr_worst_aqi INTEGER,
+            worst_location_id TEXT,
+            worst_location_name TEXT,
             started_at TEXT NOT NULL
         )
         """
     )
+    existing_log_cols = [row["name"] for row in conn.execute("PRAGMA table_info(grap_stage_log)")]
+    for col, coltype in [("worst_location_id", "TEXT"), ("worst_location_name", "TEXT")]:
+        if col not in existing_log_cols:
+            conn.execute(f"ALTER TABLE grap_stage_log ADD COLUMN {col} {coltype}")
+
     conn.commit()
     conn.close()
 
@@ -80,11 +87,11 @@ def get_latest_grap_log():
     return dict(row) if row else None
 
 
-def insert_grap_log(stage: int, label: str, ncr_worst_aqi):
+def insert_grap_log(stage: int, label: str, ncr_worst_aqi, worst_location_id=None, worst_location_name=None):
     conn = get_connection()
     conn.execute(
-        "INSERT INTO grap_stage_log (stage, label, ncr_worst_aqi, started_at) VALUES (?, ?, ?, ?)",
-        (stage, label, ncr_worst_aqi, datetime.now(timezone.utc).isoformat()),
+        "INSERT INTO grap_stage_log (stage, label, ncr_worst_aqi, worst_location_id, worst_location_name, started_at) VALUES (?, ?, ?, ?, ?, ?)",
+        (stage, label, ncr_worst_aqi, worst_location_id, worst_location_name, datetime.now(timezone.utc).isoformat()),
     )
     conn.commit()
     conn.close()
@@ -114,29 +121,6 @@ def insert_reading(location_id: str, aqi, pm25, pm10, wind_speed, wind_deg, stat
             location_id, aqi, pm25, pm10, wind_speed, wind_deg, station_name, station_lat, station_lon,
             no2, so2, o3, co, dominant_pollutant, (1 if official_compliant else 0),
             source, datetime.now(timezone.utc).isoformat(),
-        ),
-    )
-    conn.commit()
-    conn.close()
-    
-    conn = get_connection()
-    conn.execute(
-        """
-        INSERT INTO aqi_readings (location_id, aqi, pm25, pm10, wind_speed, wind_deg, station_name, station_lat, station_lon, source, fetched_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """,
-        (
-            location_id,
-            aqi,
-            pm25,
-            pm10,
-            wind_speed,
-            wind_deg,
-            station_name,
-            station_lat,
-            station_lon,
-            source,
-            datetime.now(timezone.utc).isoformat(),
         ),
     )
     conn.commit()
